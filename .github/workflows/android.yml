@@ -54,7 +54,7 @@ jobs:
         cp -R libs/* ../app_pojavlauncher/src/main/jniLibs/
     
     - name: Push gl4es
-      if: github.event != 'pull_request' && steps.gl4es-cache.outputs.cache-hit != 'true' && github.repository_owner == 'PojavLauncherTeam' && github.ref_name == 'v3_openjdk'
+      if: github.event != 'pull_request' && steps.gl4es-cache.outputs.cache-hit != 'true'
       continue-on-error: true
       run: |
         git add .
@@ -101,17 +101,17 @@ jobs:
         ./gradlew :app_pojavlauncher:bundleGplay
         mv app_pojavlauncher/build/outputs/bundle/gplay/app_pojavlauncher-gplay.aab out/app-gplay.aab
     
-    - name: Build Debug .apk
+    - name: Build Release .apk
       run: |
         # Build the launcher
-        ./gradlew :app_pojavlauncher:assembleDebug
+        ./gradlew :app_pojavlauncher:assembleRelease
         mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
         
     - name: Build APK without runtime
       run: | 
         rm -r app_pojavlauncher/src/main/assets/components/jre
         rm -r app_pojavlauncher/src/main/assets/components/jre-new
-        ./gradlew assembleDebug
+        ./gradlew assembleRelease
         mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug-noruntime.apk
         
     - name: Upload APK
