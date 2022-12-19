@@ -105,7 +105,7 @@ jobs:
       run: |
         # Build the launcher
         ./gradlew :app_pojavlauncher:assembleRelease
-        cd app_pojavlauncher/build/outputs/apk/
+        cd app_pojavlauncher/build/outputs/apk/release
         ls
         
     - name: Build APK without runtime
