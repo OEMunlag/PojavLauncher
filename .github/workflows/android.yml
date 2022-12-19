@@ -105,15 +105,14 @@ jobs:
       run: |
         # Build the launcher
         ./gradlew :app_pojavlauncher:assembleRelease
-        cd app_pojavlauncher/build/outputs/apk/release
-        ls
+         mv app_pojavlauncher/build/outputs/apk/release/app_pojavlauncher-release-unsigned.apk out/app-debug.apk
         
     - name: Build APK without runtime
       run: | 
         rm -r app_pojavlauncher/src/main/assets/components/jre
         rm -r app_pojavlauncher/src/main/assets/components/jre-new
         ./gradlew assembleRelease
-        mv app_pojavlauncher/build/outputs/apk/release/app_pojavlauncher-release.apk out/app-debug-noruntime.apk
+        mv app_pojavlauncher/build/outputs/apk/release/app_pojavlauncher-release-unsigned.apk out/app-debug-noruntime.apk
         
     - name: Upload APK
       uses: actions/upload-artifact@v2
